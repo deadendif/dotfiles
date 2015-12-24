@@ -16,6 +16,7 @@ to manage 'runtimepath'.
 
 ```shell
 git clone https://github.com/deadEnding/dotfiles.git ~/dotfiles
+cd dotfiles
 git submodule update --init --recursive
 ```
 
@@ -37,7 +38,7 @@ create symlink when executing `makesymlinks.sh`.
 ```shell
 cp .<dotfile-name> ~/dotfiles/<dotfile-name>
 ```
-*Warning*: Pay attention to the name change of dotfile. Don't forget to remove the dot 
+**Warning**: Pay attention to the name change of dotfile. Don't forget to remove the dot 
 when copying the dotfile.
 
 ##### 2. Optionally, modify makesymlinks.sh
