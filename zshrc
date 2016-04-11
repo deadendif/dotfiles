@@ -99,9 +99,6 @@ ZSH_HIGHLIGHT_STYLES[path_approx]='fg=yellow'
 ZSH_HIGHLIGHT_PATTERNS+=('rm *' 'fg=red,bold')
 ZSH_HIGHLIGHT_PATTERNS+=('rm -rf *' 'fg=white,bold,bg=red')
 
-# Path
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/local/java/jdk1.7.0_80/bin:/usr/local/java/apache-maven-3.3.3/bin:/usr/local/java/jdk1.7.0_80/jre/bin:/usr/local/java/jdk1.7.0_80"
-
 # Alias
 alias run='python manage.py runserver'
 alias runfalse='python manage.py runserver --insecure'
@@ -112,3 +109,8 @@ alias l='ls'
 # Grep highlight
 export GREP_OPTIONS='--color=always'
 export GREP_COLOR='1;31'
+
+# Other alias
+if [ -f ~/.custom_aliases ]; then
+    . ~/.custom_aliases
+fi
