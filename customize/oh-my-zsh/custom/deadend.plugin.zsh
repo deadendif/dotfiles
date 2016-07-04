@@ -7,6 +7,9 @@ if [[ "$TERM" == screen* ]]; then
   if [[ $_GET_HOST == '' ]]; then
     _GET_HOST='echo $HOST | sed "s/\..*//"'
   fi
+  if [[ $_GET_USERNAME == '' ]]; then
+    _GET_USERNAME='whoami'
+  fi
 
   # use the current user as the prefix of the current tab title 
   TAB_TITLE_PREFIX='"`'$_GET_HOST'`:`'$_GET_PATH' | sed "s:..*/::"`$PROMPT_CHAR"'
@@ -27,6 +30,8 @@ if [[ "$TERM" == screen* ]]; then
   # when running a command, show the command name and arguments as the rest of
   # the title
   TAB_HARDSTATUS_EXEC='$cmd'
+  # current user
+  TAB_HARDSTATUS_USER='`$_GET_USERNAME`'
 
   # tell GNU screen what the tab window title ($1) and the hardstatus($2) should be
   function screen_set()
@@ -42,14 +47,16 @@ if [[ "$TERM" == screen* ]]; then
   {
     local -a cmd; cmd=(${(z)1}) # the command string
     eval "tab_title=$TAB_TITLE_PREFIX:$TAB_TITLE_EXEC"
-    eval "tab_hardstatus=${TAB_HARDSTATUS_PREFIX}\"> \"${TAB_HARDSTATUS_EXEC}"
+    # eval "tab_hardstatus=${TAB_HARDSTATUS_PREFIX}\"> \"${TAB_HARDSTATUS_EXEC}"
+    eval "tab_hardstatus=${TAB_HARDSTATUS_PREFIX}\"> \"${TAB_HARDSTATUS_USER}"
     screen_set $tab_title $tab_hardstatus
   }
   # called by zsh before showing the prompt
   function precmd()
   {
     eval "tab_title=$TAB_TITLE_PREFIX:$TAB_TITLE_PROMPT"
-    eval "tab_hardstatus=${TAB_HARDSTATUS_PREFIX}\"> \"${TAB_HARDSTATUS_PROMPT}"
+    # eval "tab_hardstatus=${TAB_HARDSTATUS_PREFIX}\"> \"${TAB_HARDSTATUS_PROMPT}"
+    eval "tab_hardstatus=${TAB_HARDSTATUS_PREFIX}\"> \"${TAB_HARDSTATUS_USER}"
     screen_set $tab_title $tab_hardstatus
   }
 fi
